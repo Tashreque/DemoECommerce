@@ -7,15 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		890A37C2270F535500CDB6AD /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890A37C1270F535500CDB6AD /* NetworkError.swift */; };
+		890A37C6270F735A00CDB6AD /* StoreInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890A37C5270F735A00CDB6AD /* StoreInfo.swift */; };
+		890A37C8270F744100CDB6AD /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890A37C7270F744100CDB6AD /* Product.swift */; };
+		890A37CA270F74B500CDB6AD /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890A37C9270F74B500CDB6AD /* Order.swift */; };
 		89760990270F35540002092B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8976098F270F35540002092B /* AppDelegate.swift */; };
 		89760992270F35540002092B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89760991270F35540002092B /* SceneDelegate.swift */; };
 		89760994270F35540002092B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89760993270F35540002092B /* ViewController.swift */; };
 		89760997270F35540002092B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89760995270F35540002092B /* Main.storyboard */; };
 		89760999270F35580002092B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89760998270F35580002092B /* Assets.xcassets */; };
 		8976099C270F35580002092B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8976099A270F35580002092B /* LaunchScreen.storyboard */; };
+		897609A6270F3A6C0002092B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897609A5270F3A6C0002092B /* Endpoint.swift */; };
+		897609A8270F3C490002092B /* StoreEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897609A7270F3C490002092B /* StoreEndpoint.swift */; };
+		897609AA270F40560002092B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897609A9270F40560002092B /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		890A37C1270F535500CDB6AD /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		890A37C5270F735A00CDB6AD /* StoreInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfo.swift; sourceTree = "<group>"; };
+		890A37C7270F744100CDB6AD /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		890A37C9270F74B500CDB6AD /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		8976098C270F35530002092B /* ECommerce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECommerce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8976098F270F35540002092B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89760991270F35540002092B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +35,9 @@
 		89760998270F35580002092B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8976099B270F35580002092B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8976099D270F35580002092B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		897609A5270F3A6C0002092B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		897609A7270F3C490002092B /* StoreEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreEndpoint.swift; sourceTree = "<group>"; };
+		897609A9270F40560002092B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +51,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		890A37C3270F6EF100CDB6AD /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				897609A5270F3A6C0002092B /* Endpoint.swift */,
+				897609A7270F3C490002092B /* StoreEndpoint.swift */,
+			);
+			path = Endpoints;
+			sourceTree = "<group>";
+		};
+		890A37C4270F6F8B00CDB6AD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				890A37C5270F735A00CDB6AD /* StoreInfo.swift */,
+				890A37C7270F744100CDB6AD /* Product.swift */,
+				890A37C9270F74B500CDB6AD /* Order.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		89760983270F35530002092B = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +89,8 @@
 		8976098E270F35540002092B /* ECommerce */ = {
 			isa = PBXGroup;
 			children = (
+				890A37C4270F6F8B00CDB6AD /* Model */,
+				897609A3270F35630002092B /* Networking */,
 				8976098F270F35540002092B /* AppDelegate.swift */,
 				89760991270F35540002092B /* SceneDelegate.swift */,
 				89760993270F35540002092B /* ViewController.swift */,
@@ -65,6 +100,16 @@
 				8976099D270F35580002092B /* Info.plist */,
 			);
 			path = ECommerce;
+			sourceTree = "<group>";
+		};
+		897609A3270F35630002092B /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				890A37C3270F6EF100CDB6AD /* Endpoints */,
+				897609A9270F40560002092B /* NetworkManager.swift */,
+				890A37C1270F535500CDB6AD /* NetworkError.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +182,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				897609AA270F40560002092B /* NetworkManager.swift in Sources */,
+				890A37C2270F535500CDB6AD /* NetworkError.swift in Sources */,
+				890A37CA270F74B500CDB6AD /* Order.swift in Sources */,
+				890A37C8270F744100CDB6AD /* Product.swift in Sources */,
 				89760994270F35540002092B /* ViewController.swift in Sources */,
+				890A37C6270F735A00CDB6AD /* StoreInfo.swift in Sources */,
 				89760990270F35540002092B /* AppDelegate.swift in Sources */,
+				897609A6270F3A6C0002092B /* Endpoint.swift in Sources */,
+				897609A8270F3C490002092B /* StoreEndpoint.swift in Sources */,
 				89760992270F35540002092B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
