@@ -12,4 +12,20 @@ enum NetworkError: Error {
     case badData
     case badResponse
     case failedDataParsing
+    case failedRequest
+
+    var errorMessage: String {
+        switch self {
+        case .badStatusCode(let code):
+            return "Bad status of response: \(code)"
+        case .badData:
+            return "Bad data!"
+        case .badResponse:
+            return "Bad response!"
+        case .failedDataParsing:
+            return "Failed to parse data!"
+        case .failedRequest:
+            return "The request failed!"
+        }
+    }
 }

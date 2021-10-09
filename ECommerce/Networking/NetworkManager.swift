@@ -18,7 +18,7 @@ class NetworkManager {
     // The singleton instance of URLSession.
     private let session = URLSession.shared
 
-    func getRequest<T: Codable>(endpoint: Endpoint, completion: @escaping (Result<T, Error>) -> ()) {
+    func getRequest<T: Codable>(endpoint: Endpoint, completion: @escaping (Result<T, NetworkError>) -> ()) {
         // Setup a URLComponents object based on the properties of the endpoint.
         var components = URLComponents()
         components.scheme = endpoint.scheme
@@ -36,27 +36,27 @@ class NetworkManager {
         // Create a data task from the URLSession object. Within the response closure, the response, error and data are handled.
         let dataTask = session.dataTask(with: urlRequest) { data, response, error in
             guard error == nil else {
-                completion(.failure(error!))
+                completion(.failure(.failedRequest))
                 print(error?.localizedDescription ?? "Unknown error!")
                 return
             }
 
             guard let httpResponse = response as? HTTPURLResponse else {
                 print("Wrong response type!")
-                completion(.failure(NetworkError.badResponse))
+                completion(.failure(.badResponse))
                 return
             }
 
             let statusCode = httpResponse.statusCode
             guard (200...299).contains(statusCode) else {
                 print("Error status code: \(httpResponse.statusCode)")
-                completion(.failure(NetworkError.badStatusCode(code: statusCode)))
+                completion(.failure(.badStatusCode(code: statusCode)))
                 return
             }
 
             guard let data = data else {
                 print("Bad data!")
-                completion(.failure(NetworkError.badData))
+                completion(.failure(.badData))
                 return
             }
 
@@ -66,13 +66,13 @@ class NetworkManager {
                 completion(.success(responseObject))
             } catch {
                 print(error.localizedDescription)
-                completion(.failure(NetworkError.failedDataParsing))
+                completion(.failure(.failedDataParsing))
             }
         }
         dataTask.resume()
     }
 
-    func getImage(fromUrlString urlString: String, completion: @escaping (Result<Data, Error>) -> ()) {
+    func getImage(fromUrlString urlString: String, completion: @escaping (Result<Data, NetworkError>) -> ()) {
         guard let url = URL(string: urlString) else {
             return
         }
@@ -80,21 +80,21 @@ class NetworkManager {
         // Create a download task, start it and handle corresponding errors.
         let downloadTask = session.downloadTask(with: url) { tempUrl, response, error in
             guard error == nil else {
-                completion(.failure(error!))
+                completion(.failure(.failedRequest))
                 print(error?.localizedDescription ?? "Unknown error!")
                 return
             }
 
             guard let httpResponse = response as? HTTPURLResponse else {
                 print("Wrong response type!")
-                completion(.failure(NetworkError.badResponse))
+                completion(.failure(.badResponse))
                 return
             }
 
             let statusCode = httpResponse.statusCode
             guard (200...299).contains(statusCode) else {
                 print("Error status code: \(httpResponse.statusCode)")
-                completion(.failure(NetworkError.badStatusCode(code: statusCode)))
+                completion(.failure(.badStatusCode(code: statusCode)))
                 return
             }
 
@@ -104,13 +104,13 @@ class NetworkManager {
                 completion(.success(data))
             } catch {
                 print(error.localizedDescription)
-                completion(.failure(NetworkError.failedDataParsing))
+                completion(.failure(.failedDataParsing))
             }
         }
         downloadTask.resume()
     }
 
-    func uploadRequest<T: Codable>(requestBody: T, endpoint: Endpoint, completion: @escaping (Result<Bool, Error>) -> ()) {
+    func uploadRequest<T: Codable>(requestBody: T, endpoint: Endpoint, completion: @escaping (Result<Bool, NetworkError>) -> ()) {
         // Setup a URLComponents object based on the properties of the endpoint.
         var components = URLComponents()
         components.scheme = endpoint.scheme
@@ -132,27 +132,27 @@ class NetworkManager {
             // Create an upload task, handle corresponding errors.
             let uploadTask = session.uploadTask(with: urlRequest, from: data) { responseData, response, error in
                 guard error == nil else {
-                    completion(.failure(error!))
+                    completion(.failure(.failedRequest))
                     print(error?.localizedDescription ?? "Unknown error!")
                     return
                 }
 
                 guard let httpResponse = response as? HTTPURLResponse else {
                     print("Wrong response type!")
-                    completion(.failure(NetworkError.badResponse))
+                    completion(.failure(.badResponse))
                     return
                 }
 
                 let statusCode = httpResponse.statusCode
                 guard (200...299).contains(statusCode) else {
                     print("Error status code: \(httpResponse.statusCode)")
-                    completion(.failure(NetworkError.badStatusCode(code: statusCode)))
+                    completion(.failure(.badStatusCode(code: statusCode)))
                     return
                 }
 
                 guard responseData != nil else {
                     print("Bad data!")
-                    completion(.failure(NetworkError.badData))
+                    completion(.failure(.badData))
                     return
                 }
 
@@ -162,7 +162,7 @@ class NetworkManager {
             uploadTask.resume()
         } catch {
             print("Error during encoding: \(error.localizedDescription)")
-            completion(.failure(NetworkError.failedDataParsing))
+            completion(.failure(.failedDataParsing))
         }
     }
 }
