@@ -18,6 +18,9 @@ class NetworkManager {
     // The singleton instance of URLSession.
     private let session = URLSession.shared
 
+    /// The image download task which can be dealt with once the task is in progress.
+    var imageDownloadTask: URLSessionDownloadTask?
+
     func getRequest<T: Codable>(endpoint: Endpoint, completion: @escaping (Result<T, NetworkError>) -> ()) {
         // Setup a URLComponents object based on the properties of the endpoint.
         var components = URLComponents()
@@ -107,10 +110,11 @@ class NetworkManager {
                 completion(.failure(.failedDataParsing))
             }
         }
+        imageDownloadTask = downloadTask
         downloadTask.resume()
     }
 
-    func uploadRequest<T: Codable>(requestBody: T, endpoint: Endpoint, completion: @escaping (Result<Bool, NetworkError>) -> ()) {
+    func uploadRequest<T: Codable>(requestBody: T, endpoint: Endpoint, completion: @escaping (NetworkError?) -> ()) {
         // Setup a URLComponents object based on the properties of the endpoint.
         var components = URLComponents()
         components.scheme = endpoint.scheme
@@ -132,37 +136,35 @@ class NetworkManager {
             // Create an upload task, handle corresponding errors.
             let uploadTask = session.uploadTask(with: urlRequest, from: data) { responseData, response, error in
                 guard error == nil else {
-                    completion(.failure(.failedRequest))
+                    completion(.failedRequest)
                     print(error?.localizedDescription ?? "Unknown error!")
                     return
                 }
 
                 guard let httpResponse = response as? HTTPURLResponse else {
                     print("Wrong response type!")
-                    completion(.failure(.badResponse))
+                    completion(.badResponse)
                     return
                 }
 
                 let statusCode = httpResponse.statusCode
                 guard (200...299).contains(statusCode) else {
                     print("Error status code: \(httpResponse.statusCode)")
-                    completion(.failure(.badStatusCode(code: statusCode)))
+                    completion(.badStatusCode(code: statusCode))
                     return
                 }
 
                 guard responseData != nil else {
                     print("Bad data!")
-                    completion(.failure(.badData))
+                    completion(.badData)
                     return
                 }
-
-                // Request successful!
-                completion(.success(true))
+                completion(nil)
             }
             uploadTask.resume()
         } catch {
             print("Error during encoding: \(error.localizedDescription)")
-            completion(.failure(.failedDataParsing))
+            completion(.failedDataParsing)
         }
     }
 }

@@ -7,8 +7,6 @@
 
 import Foundation
 
-typealias NetworkErrorMessage = String?
-
 class ProductsViewModel {
 
     /// The closure which is called in order to bind information with the corresponding view controller.
@@ -26,11 +24,8 @@ class ProductsViewModel {
     /// The number of items to be displayed.
     var numberOfItemsToBeDisplayed = 0
 
-    /// The total price.
-    var totalPrice = 0
-
-    // The dictionary to keep track of the products and the amount ordered.
-    private var productOrderCountDict = [String : Int]()
+    /// The dictionary to keep track of the products and the amount ordered.
+    var productOrderCountDict: SelectedProductDictionary = [String : Int]()
 
     // Network manager shared instance.
     let networkManager = NetworkManager.shared
@@ -86,22 +81,5 @@ class ProductsViewModel {
                 completion(nil, error.errorMessage)
             }
         }
-    }
-
-    func updatePrice(orderDict: [String : Int]) {
-        productOrderCountDict = orderDict
-
-        // Calculate price
-        var price = 0
-        for product in products {
-            let productName = product.name ?? ""
-            let productPrice = product.price ?? 0
-            if let itemCount = productOrderCountDict[productName] {
-                let totalItemPrice = itemCount * productPrice
-                price += totalItemPrice
-            }
-        }
-        totalPrice = price
-        print("Total price = \(totalPrice)")
     }
 }

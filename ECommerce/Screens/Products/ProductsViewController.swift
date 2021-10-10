@@ -57,24 +57,26 @@ class ProductsViewController: UIViewController {
         productTableView.register(UINib(nibName: ProductListTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ProductListTableViewCell.identifier)
 
         orderSummaryButton.layer.cornerRadius = 24
-        orderSummaryButton.backgroundColor = UIColor.brown.withAlphaComponent(0.5)
-        orderSummaryButton.isEnabled = false
+        orderSummaryButton.backgroundColor = .brown
         orderSummaryButton.setTitle("Order Summary", for: .normal)
         orderSummaryButton.setTitleColor(.white, for: .normal)
+        orderSummaryButton.disableButton(withAlpha: 0.5)
     }
 
     private func toggleOrderSummaryButton(shouldEnable: Bool) {
         if shouldEnable {
-            orderSummaryButton.backgroundColor = .brown
-            orderSummaryButton.isEnabled = true
+            orderSummaryButton.enableButton()
         } else {
-            orderSummaryButton.backgroundColor = UIColor.brown.withAlphaComponent(0.5)
-            orderSummaryButton.isEnabled = false
+            orderSummaryButton.disableButton(withAlpha: 0.5)
         }
     }
 
     @IBAction func didTapOrderSummary(_ sender: Any) {
-        
+        let storyboard = UIStoryboard(name: StoryboardName.main, bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: String(describing: OrderSummaryViewController.self)) as! OrderSummaryViewController
+        controller.orderDict = viewModel.productOrderCountDict
+        controller.products = viewModel.products
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 
@@ -95,8 +97,8 @@ extension ProductsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configureCell(withProducts: viewModel.products, cellHeight: cellHeight, cellWidth: cellWidth)
         cell.orderListUpdated = { [weak self] (orderDict) in
             guard let self = self else { return }
-            self.viewModel.updatePrice(orderDict: orderDict)
-            self.toggleOrderSummaryButton(shouldEnable: self.viewModel.totalPrice > 0)
+            self.viewModel.productOrderCountDict = orderDict
+            self.toggleOrderSummaryButton(shouldEnable: self.viewModel.productOrderCountDict.count > 0)
         }
         return cell
     }
