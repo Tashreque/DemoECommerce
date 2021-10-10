@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         if let navigationController = window?.rootViewController as? UINavigationController {
             navigationController.navigationBar.barTintColor = .brown
+            navigationController.navigationBar.isTranslucent = false
         }
 
         return true

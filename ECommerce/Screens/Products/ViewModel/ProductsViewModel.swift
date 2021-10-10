@@ -23,6 +23,15 @@ class ProductsViewModel {
     /// The product list.
     var products = [Product]()
 
+    /// The number of items to be displayed.
+    var numberOfItemsToBeDisplayed = 0
+
+    /// The total price.
+    var totalPrice = 0
+
+    // The dictionary to keep track of the products and the amount ordered.
+    private var productOrderCountDict = [String : Int]()
+
     // Network manager shared instance.
     let networkManager = NetworkManager.shared
 
@@ -50,6 +59,7 @@ class ProductsViewModel {
         // Get notified when both tasks are complete.
         taskGroup.notify(queue: .main) { [weak self] in
             guard let self = self else { return }
+            self.numberOfItemsToBeDisplayed = 2
             self.bindStoreAndProductInfo?()
         }
     }
@@ -76,5 +86,22 @@ class ProductsViewModel {
                 completion(nil, error.errorMessage)
             }
         }
+    }
+
+    func updatePrice(orderDict: [String : Int]) {
+        productOrderCountDict = orderDict
+
+        // Calculate price
+        var price = 0
+        for product in products {
+            let productName = product.name ?? ""
+            let productPrice = product.price ?? 0
+            if let itemCount = productOrderCountDict[productName] {
+                let totalItemPrice = itemCount * productPrice
+                price += totalItemPrice
+            }
+        }
+        totalPrice = price
+        print("Total price = \(totalPrice)")
     }
 }

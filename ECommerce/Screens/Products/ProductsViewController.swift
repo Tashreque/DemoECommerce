@@ -15,12 +15,10 @@ class ProductsViewController: UIViewController {
     // Storyboard outlet connections
     @IBOutlet weak var productTableView: UITableView!
     @IBOutlet weak var orderSummaryButton: UIButton!
-    @IBOutlet weak var orderSummaryBottomConstraint: NSLayoutConstraint!
 
     // View controller specific constants
     let orderSummaryConstraintChange: CGFloat = 100
     let orderSummaryConstraintOffset: CGFloat = 16
-    let itemCount = 2
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,26 +57,19 @@ class ProductsViewController: UIViewController {
         productTableView.register(UINib(nibName: ProductListTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ProductListTableViewCell.identifier)
 
         orderSummaryButton.layer.cornerRadius = 24
-        orderSummaryButton.layer.shadowColor = UIColor.black.withAlphaComponent(0.5).cgColor
-        orderSummaryButton.layer.shadowOpacity = 1
-        orderSummaryButton.layer.shadowRadius = 8
-        orderSummaryButton.layer.shadowOffset = .zero
+        orderSummaryButton.backgroundColor = UIColor.brown.withAlphaComponent(0.5)
+        orderSummaryButton.isEnabled = false
+        orderSummaryButton.setTitle("Order Summary", for: .normal)
+        orderSummaryButton.setTitleColor(.white, for: .normal)
     }
 
-    private func toggleOrderSummaryButton(shouldShow: Bool) {
-        let animationOption = shouldShow ? UIView.AnimationOptions.curveEaseOut : UIView.AnimationOptions.curveEaseIn
-        UIView.animate(withDuration: 0.3, delay: 0, options: animationOption) { [weak self] in
-            guard let self = self else { return }
-
-            let change = self.orderSummaryConstraintChange + self.orderSummaryConstraintOffset
-            if shouldShow {
-                self.orderSummaryBottomConstraint.constant += change
-            } else {
-                self.orderSummaryBottomConstraint.constant -= change
-            }
-            self.view.layoutIfNeeded()
-        } completion: { _ in
-            print("Toggled order summary button.")
+    private func toggleOrderSummaryButton(shouldEnable: Bool) {
+        if shouldEnable {
+            orderSummaryButton.backgroundColor = .brown
+            orderSummaryButton.isEnabled = true
+        } else {
+            orderSummaryButton.backgroundColor = UIColor.brown.withAlphaComponent(0.5)
+            orderSummaryButton.isEnabled = false
         }
     }
 
@@ -89,7 +80,7 @@ class ProductsViewController: UIViewController {
 
 extension ProductsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemCount
+        return viewModel.numberOfItemsToBeDisplayed
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -99,9 +90,14 @@ extension ProductsViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: ProductListTableViewCell.identifier, for: indexPath) as! ProductListTableViewCell
-        let cellWidth = 0.80 * self.view.bounds.width
+        let cellWidth = 0.75 * self.view.bounds.width
         let cellHeight = 0.60 * self.view.bounds.height
         cell.configureCell(withProducts: viewModel.products, cellHeight: cellHeight, cellWidth: cellWidth)
+        cell.orderListUpdated = { [weak self] (orderDict) in
+            guard let self = self else { return }
+            self.viewModel.updatePrice(orderDict: orderDict)
+            self.toggleOrderSummaryButton(shouldEnable: self.viewModel.totalPrice > 0)
+        }
         return cell
     }
 }

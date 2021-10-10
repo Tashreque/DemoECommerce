@@ -21,6 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         if let navigationController = window?.rootViewController as? UINavigationController {
             navigationController.navigationBar.barTintColor = .brown
+            navigationController.navigationBar.isTranslucent = false
         }
     }
 

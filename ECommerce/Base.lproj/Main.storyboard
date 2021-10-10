@@ -17,14 +17,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kie-co-hq6">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="694"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rc0-I9-ICU">
-                                <rect key="frame" x="16" y="914" width="382" height="48"/>
-                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                <rect key="frame" x="16" y="798" width="382" height="48"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="gYP-jc-pyO"/>
+                                    <constraint firstAttribute="height" constant="48" id="EUh-dx-GKV"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <connections>
@@ -36,17 +35,16 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Kie-co-hq6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="4Lb-2E-x2A"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Rc0-I9-ICU" secondAttribute="bottom" constant="-100" id="4xO-Ca-Gdl"/>
                             <constraint firstItem="Kie-co-hq6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="TnU-Wu-I8d"/>
                             <constraint firstItem="Kie-co-hq6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="U7f-xC-sYS"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Rc0-I9-ICU" secondAttribute="trailing" constant="16" id="bGB-4R-C4N"/>
-                            <constraint firstItem="Kie-co-hq6" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="ejK-TB-Ydt"/>
-                            <constraint firstItem="Rc0-I9-ICU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="rcZ-Le-Lnx"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Rc0-I9-ICU" secondAttribute="bottom" constant="16" id="V6G-tS-MaE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Rc0-I9-ICU" secondAttribute="trailing" constant="16" id="fNZ-tB-9jP"/>
+                            <constraint firstItem="Rc0-I9-ICU" firstAttribute="top" secondItem="Kie-co-hq6" secondAttribute="bottom" constant="16" id="km4-9c-fyU"/>
+                            <constraint firstItem="Rc0-I9-ICU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="xkz-E3-5dH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="urf-hR-Owa"/>
                     <connections>
-                        <outlet property="orderSummaryBottomConstraint" destination="4xO-Ca-Gdl" id="Ygv-c8-3RH"/>
                         <outlet property="orderSummaryButton" destination="Rc0-I9-ICU" id="yzy-lw-ZGz"/>
                         <outlet property="productTableView" destination="Kie-co-hq6" id="K1M-XD-mjH"/>
                     </connections>
@@ -80,9 +78,6 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
