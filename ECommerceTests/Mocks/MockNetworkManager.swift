@@ -16,9 +16,6 @@ class MockNetworkManager: NetworkManagerDelegate {
     // The initializer made private so that this class cannot be instantiated.
     private init() {}
 
-    // The singleton instance of URLSession.
-    private let session = URLSession.shared
-
     func getRequest<T: Codable>(endpoint: Endpoint, completion: @escaping (Result<T, NetworkError>) -> ()) {
         var fileName = ""
         if endpoint.path.contains("/storeInfo") {

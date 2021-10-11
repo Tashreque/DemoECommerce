@@ -55,7 +55,10 @@ class NetworkManager: NetworkManagerDelegate {
         components.path = endpoint.path
 
         // Construct URL from the URLComponents instance.
-        guard let url = components.url else { return }
+        guard let url = components.url else {
+            completion(.failure(.badUrl))
+            return
+        }
 
         // Create the URL request object.
         var urlRequest = URLRequest(url: url)
@@ -103,6 +106,7 @@ class NetworkManager: NetworkManagerDelegate {
     func getImage(fromUrlString urlString: String, completion: @escaping (Result<Data, NetworkError>) -> (), currentDownloadTask: (URLSessionDownloadTask?) -> ()) {
         var downloadTask: URLSessionDownloadTask?
         guard let url = URL(string: urlString) else {
+            completion(.failure(.badUrl))
             return
         }
 
@@ -149,7 +153,10 @@ class NetworkManager: NetworkManagerDelegate {
         components.path = endpoint.path
 
         // Construct URL from the URLComponents instance.
-        guard let url = components.url else { return }
+        guard let url = components.url else {
+            completion(.badUrl)
+            return
+        }
 
         // Create the URL request object.
         var urlRequest = URLRequest(url: url)

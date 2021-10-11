@@ -13,6 +13,7 @@ enum NetworkError: Error {
     case badResponse
     case failedDataParsing
     case failedRequest
+    case badUrl
 
     var errorMessage: String {
         switch self {
@@ -26,6 +27,8 @@ enum NetworkError: Error {
             return "Failed to parse data!"
         case .failedRequest:
             return "The request failed!"
+        case .badUrl:
+            return "Bad URL!"
         }
     }
 }
