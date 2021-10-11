@@ -151,7 +151,66 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0PD-hL-N5b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1817.3913043478262" y="61.607142857142854"/>
+            <point key="canvasLocation" x="1843" y="50"/>
+        </scene>
+        <!--Order Success View Controller-->
+        <scene sceneID="kLj-R0-agu">
+            <objects>
+                <viewController storyboardIdentifier="OrderSuccessViewController" id="F5g-wJ-5AD" customClass="OrderSuccessViewController" customModule="ECommerce" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0bq-bK-iAi">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M1a-Cl-5EI">
+                                <rect key="frame" x="82" y="323" width="250" height="250"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WwH-mB-vsh">
+                                        <rect key="frame" x="16" y="16" width="218" height="218"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="2RM-wN-xaU"/>
+                                    <constraint firstAttribute="trailing" secondItem="WwH-mB-vsh" secondAttribute="trailing" constant="16" id="5Zq-9n-MKT"/>
+                                    <constraint firstAttribute="height" constant="250" id="9Oi-ny-obJ"/>
+                                    <constraint firstItem="WwH-mB-vsh" firstAttribute="leading" secondItem="M1a-Cl-5EI" secondAttribute="leading" constant="16" id="bMI-Fv-OOU"/>
+                                    <constraint firstAttribute="bottom" secondItem="WwH-mB-vsh" secondAttribute="bottom" constant="16" id="f3H-ne-0vB"/>
+                                    <constraint firstItem="WwH-mB-vsh" firstAttribute="top" secondItem="M1a-Cl-5EI" secondAttribute="top" constant="16" id="ghF-qj-B1y"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FwK-sN-VMQ">
+                                <rect key="frame" x="16" y="798" width="382" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="vAW-Bs-ha9"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="dismissTapped:" destination="F5g-wJ-5AD" eventType="touchUpInside" id="GlP-sb-Lva"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="l2G-Zw-ZCX"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="M1a-Cl-5EI" firstAttribute="centerX" secondItem="0bq-bK-iAi" secondAttribute="centerX" id="25a-8h-no2"/>
+                            <constraint firstItem="l2G-Zw-ZCX" firstAttribute="trailing" secondItem="FwK-sN-VMQ" secondAttribute="trailing" constant="16" id="MKI-6p-idp"/>
+                            <constraint firstItem="l2G-Zw-ZCX" firstAttribute="bottom" secondItem="FwK-sN-VMQ" secondAttribute="bottom" constant="16" id="NTo-3j-n9M"/>
+                            <constraint firstItem="FwK-sN-VMQ" firstAttribute="leading" secondItem="l2G-Zw-ZCX" secondAttribute="leading" constant="16" id="QtT-qY-eeH"/>
+                            <constraint firstItem="M1a-Cl-5EI" firstAttribute="centerY" secondItem="0bq-bK-iAi" secondAttribute="centerY" id="iW3-Qo-hwu"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dismissButton" destination="FwK-sN-VMQ" id="o6B-a7-JLH"/>
+                        <outlet property="successLabel" destination="WwH-mB-vsh" id="wVn-m3-e9o"/>
+                        <outlet property="successMessageContainerView" destination="M1a-Cl-5EI" id="eeX-sP-28X"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4wg-T0-Aud" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2692.753623188406" y="49.553571428571423"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="grQ-q7-AAR">

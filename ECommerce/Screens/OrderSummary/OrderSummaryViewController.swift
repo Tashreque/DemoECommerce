@@ -30,6 +30,9 @@ class OrderSummaryViewController: UIViewController {
     // Class specific constants.
     let cellHeight: CGFloat = 80
 
+    // The spinner view to be shown.
+    var spinnerContainerView: UIView?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,6 +40,13 @@ class OrderSummaryViewController: UIViewController {
         setupUIComponents()
         bindViewModel()
         self.hideKeyboard()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // Hide navigation bar.
+        self.navigationController?.isNavigationBarHidden = false
     }
 
     private func setupUIComponents() {
@@ -67,7 +77,7 @@ class OrderSummaryViewController: UIViewController {
     }
 
     private func bindViewModel() {
-        viewModel = OrderSummaryViewModel(products: products, orderDict: orderDict)
+        viewModel = OrderSummaryViewModel(products: products, orderDict: orderDict, networkManager: NetworkManager.shared)
         viewModel.generateUniqueProductList(orderDict: orderDict)
         self.totalPriceLabel.text = "Total: \(self.viewModel.calculatePrice(products: self.products, orderDict: self.orderDict))"
         self.orderProductTableView.reloadData()
@@ -81,16 +91,49 @@ class OrderSummaryViewController: UIViewController {
         }
     }
 
-    @IBAction func confirmOrderTapped(_ sender: Any) {
-        viewModel.placeOrder(address: addressTextView.text) { isSuccess, errorMessage in
-            if isSuccess {
+    private func showDefaultSpinner(backgroundColor: UIColor?, backgroundAlpha: CGFloat, spinnerColor: UIColor?) {
+        let containerView = UIView(frame: self.view.bounds)
+        containerView.backgroundColor = backgroundColor?.withAlphaComponent(backgroundAlpha)
 
+        let spinner = UIActivityIndicatorView()
+        spinner.color = spinnerColor
+        spinner.startAnimating()
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+
+        self.view.addSubview(containerView)
+        containerView.addSubview(spinner)
+
+        NSLayoutConstraint.activate([spinner.centerYAnchor.constraint(equalTo: self.view.centerYAnchor), spinner.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)])
+        spinnerContainerView = containerView
+    }
+
+    private func hideSpinner() {
+        if let spinnerContainerView = self.spinnerContainerView {
+            spinnerContainerView.removeFromSuperview()
+            self.spinnerContainerView = nil
+        }
+    }
+
+    @IBAction func confirmOrderTapped(_ sender: Any) {
+        self.showDefaultSpinner(backgroundColor: .brown, backgroundAlpha: 0.3, spinnerColor: .brown)
+        viewModel.placeOrder(address: addressTextView.text) { [weak self] (isSuccess, errorMessage) in
+            guard let self = self else { return }
+            if isSuccess {
+                DispatchQueue.main.async {
+                    self.hideSpinner()
+                    self.goToSuccessViewController()
+                }
             }
 
             if let errorMessage = errorMessage {
-                print(errorMessage ?? "")
+                self.showDefaultAlert(title: errorMessage ?? "", message: "")
             }
         }
+    }
+
+    func goToSuccessViewController() {
+        let controller = self.getControllerFromStoryboard(storyboardName: StoryboardName.main, classIdentifier: String(describing: OrderSuccessViewController.self)) as! OrderSuccessViewController
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 

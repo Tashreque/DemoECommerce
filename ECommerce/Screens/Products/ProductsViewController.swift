@@ -28,9 +28,16 @@ class ProductsViewController: UIViewController {
         setupUIComponents()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // Hide navigation bar.
+        self.navigationController?.isNavigationBarHidden = false
+    }
+
     private func bindViewModel() {
         // Initialize view model.
-        viewModel = ProductsViewModel()
+        viewModel = ProductsViewModel(networkManager: NetworkManager.shared)
 
         // Bind view controller to view model.
         viewModel.bindStoreAndProductInfo = { [weak self] in
@@ -42,6 +49,12 @@ class ProductsViewController: UIViewController {
                 print("Product count = \(self.viewModel.products.count)")
 
                 self.productTableView.reloadData()
+            }
+        }
+
+        viewModel.showAlert = { [weak self] errorMessage in
+            if let errorMessage = errorMessage {
+                self?.showDefaultAlert(title: errorMessage, message: "")
             }
         }
     }
@@ -72,8 +85,7 @@ class ProductsViewController: UIViewController {
     }
 
     @IBAction func didTapOrderSummary(_ sender: Any) {
-        let storyboard = UIStoryboard(name: StoryboardName.main, bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: String(describing: OrderSummaryViewController.self)) as! OrderSummaryViewController
+        let controller = self.getControllerFromStoryboard(storyboardName: StoryboardName.main, classIdentifier: String(describing: OrderSummaryViewController.self)) as! OrderSummaryViewController
         controller.orderDict = viewModel.productOrderCountDict
         controller.products = viewModel.products
         self.navigationController?.pushViewController(controller, animated: true)

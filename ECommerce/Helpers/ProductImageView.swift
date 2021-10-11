@@ -46,8 +46,8 @@ class ProductImageView: UIImageView {
             case .failure(let error):
                 print("Error downloading image: \(error.localizedDescription)")
             }
+        } currentDownloadTask: { [weak self] downloadTask in
+            self?.imageDownloadTask = downloadTask
         }
-        // Keep track of the download task.
-        self.imageDownloadTask = NetworkManager.shared.imageDownloadTask
     }
 }

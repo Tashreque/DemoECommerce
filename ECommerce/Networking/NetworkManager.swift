@@ -7,7 +7,35 @@
 
 import Foundation
 
-class NetworkManager {
+protocol NetworkManagerDelegate {
+    /**
+     This function is used to perform a GET request based on the specified endpoint.
+
+     - parameter endpoint: The enpoint for which the request should be made.
+     - parameter completion: The completion block which is called after a response gets returned. A result instance is the parameter for this closure.
+     */
+    func getRequest<T: Codable>(endpoint: Endpoint, completion: @escaping (Result<T, NetworkError>) -> ())
+
+    /**
+     This function is used to download image data based on the specified url.
+
+     - parameter urlString: The url string to which the request should be made.
+     - parameter completion: The completion block which is called after a response gets returned. A result instance is the parameter for this closure.
+     - parameter currentDownloadTask: A closure to keep track of the currrent download task being used.
+     */
+    func getImage(fromUrlString urlString: String, completion: @escaping (Result<Data, NetworkError>) -> (), currentDownloadTask: (URLSessionDownloadTask?) -> ())
+
+    /**
+     This function is used to perform an upload request based on the specified endpoint.
+
+     - parameter requestBody: The body for the request to be made.
+     - parameter endpoint: The enpoint for which the request should be made.
+     - parameter completion: The completion block which is called after a response gets returned. An optional `NetworkError` instance is the parameter for this closure.
+     */
+    func uploadRequest<T: Codable>(requestBody: T, endpoint: Endpoint, completion: @escaping (NetworkError?) -> ())
+}
+
+class NetworkManager: NetworkManagerDelegate {
 
     // The single one time only instance of this class.
     static let shared = NetworkManager()
@@ -17,9 +45,6 @@ class NetworkManager {
 
     // The singleton instance of URLSession.
     private let session = URLSession.shared
-
-    /// The image download task which can be dealt with once the task is in progress.
-    var imageDownloadTask: URLSessionDownloadTask?
 
     func getRequest<T: Codable>(endpoint: Endpoint, completion: @escaping (Result<T, NetworkError>) -> ()) {
         // Setup a URLComponents object based on the properties of the endpoint.
@@ -75,13 +100,14 @@ class NetworkManager {
         dataTask.resume()
     }
 
-    func getImage(fromUrlString urlString: String, completion: @escaping (Result<Data, NetworkError>) -> ()) {
+    func getImage(fromUrlString urlString: String, completion: @escaping (Result<Data, NetworkError>) -> (), currentDownloadTask: (URLSessionDownloadTask?) -> ()) {
+        var downloadTask: URLSessionDownloadTask?
         guard let url = URL(string: urlString) else {
             return
         }
 
         // Create a download task, start it and handle corresponding errors.
-        let downloadTask = session.downloadTask(with: url) { tempUrl, response, error in
+        downloadTask = session.downloadTask(with: url) { tempUrl, response, error in
             guard error == nil else {
                 completion(.failure(.failedRequest))
                 print(error?.localizedDescription ?? "Unknown error!")
@@ -110,8 +136,8 @@ class NetworkManager {
                 completion(.failure(.failedDataParsing))
             }
         }
-        imageDownloadTask = downloadTask
-        downloadTask.resume()
+        currentDownloadTask(downloadTask)
+        downloadTask?.resume()
     }
 
     func uploadRequest<T: Codable>(requestBody: T, endpoint: Endpoint, completion: @escaping (NetworkError?) -> ()) {

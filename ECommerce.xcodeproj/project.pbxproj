@@ -21,6 +21,7 @@
 		89445A8127136D4000B1198B /* UIView+ContextualActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89445A8027136D4000B1198B /* UIView+ContextualActions.swift */; };
 		89445A852713761600B1198B /* UIViewController+ContextualActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89445A842713761500B1198B /* UIViewController+ContextualActions.swift */; };
 		89445A8B2713887E00B1198B /* UIButton+ContextualActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89445A8A2713887E00B1198B /* UIButton+ContextualActions.swift */; };
+		89445A8D2713FBC100B1198B /* OrderSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89445A8C2713FBC100B1198B /* OrderSuccessViewController.swift */; };
 		895FAD222711BD7B00AA20A0 /* StoreInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895FAD202711BD7B00AA20A0 /* StoreInfoTableViewCell.swift */; };
 		895FAD232711BD7B00AA20A0 /* StoreInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 895FAD212711BD7B00AA20A0 /* StoreInfoTableViewCell.xib */; };
 		895FAD272711C68300AA20A0 /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895FAD252711C68300AA20A0 /* ProductCollectionViewCell.swift */; };
@@ -55,6 +56,7 @@
 		89445A8027136D4000B1198B /* UIView+ContextualActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+ContextualActions.swift"; sourceTree = "<group>"; };
 		89445A842713761500B1198B /* UIViewController+ContextualActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ContextualActions.swift"; sourceTree = "<group>"; };
 		89445A8A2713887E00B1198B /* UIButton+ContextualActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+ContextualActions.swift"; sourceTree = "<group>"; };
+		89445A8C2713FBC100B1198B /* OrderSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSuccessViewController.swift; sourceTree = "<group>"; };
 		895FAD202711BD7B00AA20A0 /* StoreInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoTableViewCell.swift; sourceTree = "<group>"; };
 		895FAD212711BD7B00AA20A0 /* StoreInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreInfoTableViewCell.xib; sourceTree = "<group>"; };
 		895FAD252711C68300AA20A0 /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 		8985E8B32710DC62001E70FB /* Success */ = {
 			isa = PBXGroup;
 			children = (
+				89445A8C2713FBC100B1198B /* OrderSuccessViewController.swift */,
 			);
 			path = Success;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				890A37CA270F74B500CDB6AD /* Order.swift in Sources */,
 				89445A7027131EF900B1198B /* GlobalVariables.swift in Sources */,
 				890A37C8270F744100CDB6AD /* Product.swift in Sources */,
+				89445A8D2713FBC100B1198B /* OrderSuccessViewController.swift in Sources */,
 				895FAD272711C68300AA20A0 /* ProductCollectionViewCell.swift in Sources */,
 				89760994270F35540002092B /* ProductsViewController.swift in Sources */,
 				890A37C6270F735A00CDB6AD /* StoreInfo.swift in Sources */,

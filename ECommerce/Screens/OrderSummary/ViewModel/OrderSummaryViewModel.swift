@@ -15,7 +15,11 @@ class OrderSummaryViewModel {
     /// The unique names of the products to be ordered.
     var uniqueProductsToOrder = [Product]()
 
-    init(products: [Product], orderDict: SelectedProductDictionary) {
+    // The network manager instance for this class.
+    private var networkManager: NetworkManagerDelegate!
+
+    init(products: [Product], orderDict: SelectedProductDictionary, networkManager: NetworkManagerDelegate) {
+        self.networkManager = networkManager
         createProductListForOrder(products: products, orderDict: orderDict)
     }
 

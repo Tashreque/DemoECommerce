@@ -28,19 +28,22 @@ class ProductsViewModel {
     var productOrderCountDict: SelectedProductDictionary = [String : Int]()
 
     // Network manager shared instance.
-    let networkManager = NetworkManager.shared
+    private var networkManager: NetworkManagerDelegate!
 
-    init() {
+    init(networkManager: NetworkManagerDelegate) {
+        self.networkManager = networkManager
         retrieveAllInformation()
     }
 
     private func retrieveAllInformation() {
         let taskGroup = DispatchGroup()
+        var retrievedErrorMessage: String?
 
         // Get store information.
         taskGroup.enter()
         getStoreInformation { [weak self] (storeInfo, errorMessage) in
             self?.storeInformation = storeInfo
+            retrievedErrorMessage = errorMessage
             taskGroup.leave()
         }
 
@@ -48,6 +51,7 @@ class ProductsViewModel {
         taskGroup.enter()
         getProductList { [weak self] (products, errorMessage) in
             self?.products = products ?? []
+            retrievedErrorMessage = errorMessage
             taskGroup.leave()
         }
 
@@ -56,6 +60,7 @@ class ProductsViewModel {
             guard let self = self else { return }
             self.numberOfItemsToBeDisplayed = 2
             self.bindStoreAndProductInfo?()
+            self.showAlert?(retrievedErrorMessage)
         }
     }
 
