@@ -35,7 +35,7 @@ class ProductsViewModel {
         retrieveAllInformation()
     }
 
-    private func retrieveAllInformation() {
+    func retrieveAllInformation() {
         let taskGroup = DispatchGroup()
         var retrievedErrorMessage: String?
 

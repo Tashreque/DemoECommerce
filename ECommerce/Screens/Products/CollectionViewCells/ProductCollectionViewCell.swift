@@ -68,6 +68,11 @@ class ProductCollectionViewCell: UICollectionViewCell {
     func setProductCount(productCount: Int) {
         addedCountLabel.text = "\(productCount)"
         removeProductButton.isEnabled = productCount > 0 ? true : false
+        if productCount > 0 {
+            containerView.setBorder(borderWidth: 3, color: .brown)
+        } else {
+            containerView.setBorder(borderWidth: 0, color: nil)
+        }
     }
 
     @IBAction func addProductTapped(_ sender: Any) {

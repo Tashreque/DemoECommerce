@@ -84,6 +84,7 @@
                 <outlet property="closingTimeLabel" destination="n6u-z1-xA1" id="y3w-5G-MsU"/>
                 <outlet property="containerView" destination="oy6-H0-H4L" id="JMk-yn-a2B"/>
                 <outlet property="openingTimeLabel" destination="qZt-SX-505" id="UN7-QR-Sc0"/>
+                <outlet property="ratingIconImageView" destination="bmu-6s-zLR" id="5pA-LV-2y3"/>
                 <outlet property="ratingLabel" destination="5Mc-6b-SNQ" id="Gbp-17-6We"/>
                 <outlet property="titleLabel" destination="eIt-Kh-2DV" id="0WI-aD-AIv"/>
             </connections>

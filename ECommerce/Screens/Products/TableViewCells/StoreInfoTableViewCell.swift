@@ -15,6 +15,7 @@ class StoreInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var openingTimeLabel: UILabel!
     @IBOutlet weak var closingTimeLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var ratingIconImageView: UIImageView!
 
     /// The cell reuse identifier.
     static let identifier = String(describing: StoreInfoTableViewCell.self)
@@ -34,8 +35,14 @@ class StoreInfoTableViewCell: UITableViewCell {
     private func setupUIComponents() {
         self.selectionStyle = .none
         titleLabel.numberOfLines = 0
+        titleLabel.textColor = .brown
+        openingTimeLabel.numberOfLines = 0
+        openingTimeLabel.textColor = .brown
+        closingTimeLabel.numberOfLines = 0
+        closingTimeLabel.textColor = .brown
+        ratingIconImageView.image = UIImage(named: "starFill")
 
-        containerView.layer.cornerRadius = 20
+        containerView.layer.cornerRadius = 5
         containerView.layer.shadowColor = UIColor.black.withAlphaComponent(0.5).cgColor
         containerView.layer.shadowOpacity = 1
         containerView.layer.shadowOffset = .zero
